@@ -53,5 +53,75 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * PART A: Generates an array containing the first N terms of the Fibonacci sequence.
+ *
+ * @param {number} n - The number of terms to generate.
+ * @return {number[]} An array containing the first N Fibonacci numbers.
+ */
+function generateFibonacci(n) {
+  if (n <= 0) return [];
+  if (n === 1) return [0];
+
+  const sequence = [0, 1];
+
+  for (let i = 2; i < n; i++) {
+    const nextTerm = sequence[i - 1] + sequence[i - 2];
+    sequence.push(nextTerm);
+  }
+
+  return sequence;
+}
+
+/**
+ * PART B: Checks whether a given non-negative integer is a Fibonacci number.
+ *
+ * @param {number} num - The number to check.
+ * @return {boolean} True if num is in the Fibonacci sequence, false otherwise.
+ */
+function isFibonacci(num) {
+  if (num < 0) return false;
+  if (num === 0 || num === 1) return true;
+
+  let prev = 0;
+  let curr = 1;
+
+  // Generate sequence numbers on the fly until we reach or pass num
+  while (curr < num) {
+    const next = prev + curr;
+    prev = curr;
+    curr = next;
+  }
+
+  return curr === num;
+}
+
+/**
+ * Main execution function.
+ */
+function main() {
+  console.log('--- PART A: FIRST N TERMS ---');
+  const count = readlineSync.questionInt('How many terms? ');
+
+  if (count <= 0) {
+    console.log('Error: Please enter a positive integer.');
+  } else {
+    const terms = generateFibonacci(count);
+    console.log(`Fibonacci sequence: ${terms.join(' ')}`);
+  }
+
+  console.log('\n--- PART B: FIBONACCI CHECKER ---');
+  const checkNum = readlineSync.questionInt('Enter a number to check: ');
+
+  if (isFibonacci(checkNum)) {
+    console.log(`${checkNum} is a Fibonacci number.`);
+  } else {
+    console.log(`${checkNum} is NOT a Fibonacci number.`);
+  }
+}
+
+// Run the program
+main();
 

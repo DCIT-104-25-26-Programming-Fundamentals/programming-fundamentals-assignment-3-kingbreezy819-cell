@@ -73,5 +73,165 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * Calculates the sum of two numbers.
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+function add(a, b) {
+  return a + b;
+}
+
+/**
+ * Calculates the difference between two numbers.
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+function subtract(a, b) {
+  return a - b;
+}
+
+/**
+ * Calculates the product of two numbers.
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+function multiply(a, b) {
+  return a * b;
+}
+
+/**
+ * Calculates the quotient of two numbers.
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number|null} Returns null if dividing by zero.
+ */
+function divide(a, b) {
+  if (b === 0) return null;
+  return a / b;
+}
+
+/**
+ * Calculates the remainder of division of two numbers.
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number|null} Returns null if divisor is zero.
+ */
+function modulus(a, b) {
+  if (b === 0) return null;
+  return a % b;
+}
+
+/**
+ * Calculates base raised to the power of exponent.
+ *
+ * @param {number} base
+ * @param {number} exponent
+ * @return {number}
+ */
+function power(base, exponent) {
+  return base ** exponent;
+}
+
+/**
+ * Displays the calculator operational menu.
+ */
+function displayMenu() {
+  console.log('\n============================');
+  console.log('      SIMPLE CALCULATOR     ');
+  console.log('============================');
+  console.log('1. Addition');
+  console.log('2. Subtraction');
+  console.log('3. Multiplication');
+  console.log('4. Division');
+  console.log('5. Modulus');
+  console.log('6. Exponentiation');
+  console.log('7. Quit');
+}
+
+/**
+ * Helper to check if a number is an integer to format cleanly.
+ *
+ * @param {number} val
+ * @return {string}
+ */
+function formatResult(val) {
+  return Number.isInteger(val) ? val.toString() : val.toFixed(2);
+}
+
+/**
+ * Main application loop.
+ */
+function main() {
+  let running = true;
+
+  while (running) {
+    displayMenu();
+    const choice = readlineSync.questionInt('Select an operation (1-7): ');
+
+    if (choice === 7) {
+      console.log('\nGoodbye!');
+      running = false;
+      continue;
+    }
+
+    if (choice < 1 || choice > 7) {
+      console.log('\nInvalid choice! Please select a number between 1 and 7.');
+      continue;
+    }
+
+    const num1 = readlineSync.questionFloat('Enter first number : ');
+    const num2 = readlineSync.questionFloat('Enter second number: ');
+
+    let result = null;
+    let symbol = '';
+
+    switch (choice) {
+      case 1:
+        result = add(num1, num2);
+        symbol = '+';
+        break;
+      case 2:
+        result = subtract(num1, num2);
+        symbol = '-';
+        break;
+      case 3:
+        result = multiply(num1, num2);
+        symbol = '*';
+        break;
+      case 4:
+        result = divide(num1, num2);
+        symbol = '/';
+        break;
+      case 5:
+        result = modulus(num1, num2);
+        symbol = '%';
+        break;
+      case 6:
+        result = power(num1, num2);
+        symbol = '**';
+        break;
+    }
+
+    // Check for division or modulus by zero
+    if (result === null) {
+      console.log('Error: Cannot divide by zero.');
+    } else {
+      console.log(`Result: ${num1} ${symbol} ${num2} = ${formatResult(result)}`);
+    }
+  }
+}
+
+// Execute calculator
+main();
 

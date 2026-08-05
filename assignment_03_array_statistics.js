@@ -42,5 +42,99 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+/**
+ * Calculates the sum of all elements in an array.
+ *
+ * @param {number[]} numbers - Array of numbers.
+ * @return {number} The sum.
+ */
+function findSum(numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return sum;
+}
+
+/**
+ * Calculates the average of elements in an array.
+ *
+ * @param {number[]} numbers - Array of numbers.
+ * @return {number} The average.
+ */
+function findAverage(numbers) {
+  const sum = findSum(numbers);
+  return sum / numbers.length;
+}
+
+/**
+ * Finds the maximum value in an array.
+ *
+ * @param {number[]} numbers - Array of numbers.
+ * @return {number} The maximum value.
+ */
+function findMax(numbers) {
+  let max = numbers[0];
+  for (let i = 1; i < numbers.length; i++) {
+    if (numbers[i] > max) {
+      max = numbers[i];
+    }
+  }
+  return max;
+}
+
+/**
+ * Finds the minimum value in an array.
+ *
+ * @param {number[]} numbers - Array of numbers.
+ * @return {number} The minimum value.
+ */
+function findMin(numbers) {
+  let min = numbers[0];
+  for (let i = 1; i < numbers.length; i++) {
+    if (numbers[i] < min) {
+      min = numbers[i];
+    }
+  }
+  return min;
+}
+
+/**
+ * Main execution function.
+ */
+function main() {
+  const count = readlineSync.questionInt('How many numbers? ');
+
+  // Validate positive count requirement
+  if (count <= 0) {
+    console.log('Error: Please enter a positive integer.');
+    return;
+  }
+
+  const numbers = [];
+
+  // Read N numbers into the array
+  for (let i = 0; i < count; i++) {
+    const num = readlineSync.questionInt(`Enter number ${i + 1}: `);
+    numbers.push(num);
+  }
+
+  // Calculate statistics using custom loop functions
+  const sum = findSum(numbers);
+  const average = findAverage(numbers);
+  const max = findMax(numbers);
+  const min = findMin(numbers);
+
+  // Print results
+  console.log('\nResults:');
+  console.log(`Sum:     ${sum}`);
+  console.log(`Average: ${average}`);
+  console.log(`Maximum: ${max}`);
+  console.log(`Minimum: ${min}`);
+}
+
+// Execute the program
+main();
 
